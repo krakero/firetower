@@ -18,21 +18,25 @@ class Report extends Command
     {
         $url = config('appman.server_url') . '/api/report/' . config('appman.account_key') . '/' . config('appman.application_key');
         $app = app();
-        $response = Http::post($url, [
+        $data = [
             'is_debug_mode_on' => $app->hasDebugModeEnabled(),
-            'enviroment' => $app->environment(),
+            'environment' => $app->environment(),
             'laravel_version' => $app->version(),
             'is_maintenance_mode_on' => $app->isDownForMaintenance(),
             'php_version' => phpversion(),
             'url' => config('app.url'),
             'composer_packages' => $this->getComposerPackageDetail(),
             'custom_data' => Appman::getCustomData(),
-        ]);
+        ];
+        $response = Http::post($url, $data);
 
         if ($response->successful()) {
             $this->comment('Report Complete');
             return self::SUCCESS;
         }
+
+        $this->error('Report Failed');
+        $this->error($response->body());
 
         return self::FAILURE;
     }
