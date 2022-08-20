@@ -16,7 +16,7 @@ class Report extends Command
 
     public function handle(): int
     {
-        $url = config('appman.server_url') . '/api/report/' . config('appman.account_key') . '/' . config('appman.application_key');
+        $url = config('appman.server_url').'/api/report/'.config('appman.account_key').'/'.config('appman.application_key');
         $app = app();
         $data = [
             'is_debug_mode_on' => $app->hasDebugModeEnabled(),
@@ -32,6 +32,7 @@ class Report extends Command
 
         if ($response->successful()) {
             $this->comment('Report Complete');
+
             return self::SUCCESS;
         }
 
@@ -49,11 +50,11 @@ class Report extends Command
             'show',
             '-D',
             '--format=json',
-            '--no-dev'
+            '--no-dev',
         ]);
         $process->run();
 
-        if (!$process->isSuccessful()) {
+        if (! $process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
 
