@@ -26,7 +26,7 @@ class Report extends Command
             'php_version' => phpversion(),
             'url' => config('app.url'),
             'composer_packages' => $this->getComposerPackageDetail(),
-            'custom_data' => Appman::getCustomData(),
+            'custom_data' => config('appman.custom'),
         ];
         $response = Http::post($url, $data);
 

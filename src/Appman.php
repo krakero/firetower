@@ -6,13 +6,8 @@ class Appman
 {
     protected $custom_data;
 
-    public function custom($data)
+    public static function setCustomData($callback)
     {
-        $this->custom_data = $data;
-    }
-
-    public function getCustomData()
-    {
-        return $this->custom_data;
+        config(['appman.custom' => array_merge(config('appman.custom'), $callback())]);
     }
 }
