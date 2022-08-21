@@ -4,7 +4,6 @@ namespace Krakero\Appman\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
-use Krakero\Appman\Facades\Appman;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
