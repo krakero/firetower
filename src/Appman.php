@@ -8,6 +8,6 @@ class Appman
 
     public static function setCustomData($callback)
     {
-        config(['appman.custom' => array_merge(config('appman.custom'), $callback())]);
+        config(['appman.custom' => $callback()]);
     }
 }
