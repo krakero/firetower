@@ -2,7 +2,6 @@
 
 namespace Krakero\Appman;
 
-use Krakero\Appman\Appman;
 use Krakero\Appman\Commands\Report;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
