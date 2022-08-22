@@ -1,12 +1,12 @@
 {
-    "name": "krakero/appman",
-    "description": "This is my package appman",
+    "name": "krakero/firetower",
+    "description": "Laravel package for Fire Tower integration",
     "keywords": [
         "krakero",
         "laravel",
-        "appman"
+        "firetower"
     ],
-    "homepage": "https://github.com/krakero/appman",
+    "homepage": "https://firetower.dev",
     "license": "MIT",
     "authors": [
         {
@@ -33,13 +33,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Krakero\\Appman\\": "src",
-            "Krakero\\Appman\\Database\\Factories\\": "database/factories"
+            "Krakero\\FireTower\\": "src",
+            "Krakero\\FireTower\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Krakero\\Appman\\Tests\\": "tests"
+            "Krakero\\FireTower\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -57,10 +57,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Krakero\\Appman\\AppmanServiceProvider"
+                "Krakero\\FireTower\\FireTowerServiceProvider"
             ],
             "aliases": {
-                "Appman": "Krakero\\Appman\\Facades\\Appman"
+                "FireTower": "Krakero\\FireTower\\Facades\\FireTower"
             }
         }
     },

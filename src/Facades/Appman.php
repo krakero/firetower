@@ -1,16 +1,16 @@
 <?php
 
-namespace Krakero\Appman\Facades;
+namespace Krakero\FireTower\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Krakero\Appman\Appman
+ * @see \Krakero\FireTower\FireTower
  */
-class Appman extends Facade
+class FireTower extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'appman';
+        return 'firetower';
     }
 }

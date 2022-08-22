@@ -1,6 +1,6 @@
 <?php
 
-namespace Krakero\Appman\Commands;
+namespace Krakero\FireTower\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
@@ -9,13 +9,13 @@ use Symfony\Component\Process\Process;
 
 class Report extends Command
 {
-    public $signature = 'appman:report';
+    public $signature = 'firetower:report';
 
     public $description = 'Reports data to your server';
 
     public function handle(): int
     {
-        $url = config('appman.server_url').'/api/report/'.config('appman.account_key').'/'.config('appman.application_key');
+        $url = config('firetower.server_url') . '/api/report/' . config('firetower.account_key') . '/' . config('firetower.application_key');
         $app = app();
         $data = [
             'is_debug_mode_on' => $app->hasDebugModeEnabled(),
@@ -25,7 +25,7 @@ class Report extends Command
             'php_version' => phpversion(),
             'url' => config('app.url'),
             'composer_packages' => $this->getComposerPackageDetail(),
-            'custom_data' => config('appman.custom'),
+            'custom_data' => config('firetower.custom'),
         ];
         $response = Http::post($url, $data);
 

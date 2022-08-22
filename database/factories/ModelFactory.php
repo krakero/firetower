@@ -1,6 +1,6 @@
 <?php
 
-namespace Krakero\Appman\Database\Factories;
+namespace Krakero\FireTower\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 

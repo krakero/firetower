@@ -1,9 +1,9 @@
 <?php
 
-namespace Krakero\Appman\Tests;
+namespace Krakero\FireTower\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Krakero\Appman\AppmanServiceProvider;
+use Krakero\FireTower\FireTowerServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -13,24 +13,19 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Krakero\\Appman\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Krakero\\FireTower\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
     }
 
     protected function getPackageProviders($app)
     {
         return [
-            AppmanServiceProvider::class,
+            FireTowerServiceProvider::class,
         ];
     }
 
     public function getEnvironmentSetUp($app)
     {
         config()->set('database.default', 'testing');
-
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_appman_table.php.stub';
-        $migration->up();
-        */
     }
 }

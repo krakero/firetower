@@ -1,5 +1,5 @@
 <?php
 
-use Krakero\Appman\Tests\TestCase;
+use Krakero\FireTower\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);

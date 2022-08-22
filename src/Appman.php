@@ -1,13 +1,11 @@
 <?php
 
-namespace Krakero\Appman;
+namespace Krakero\FireTower;
 
-class Appman
+class FireTower
 {
-    protected $custom_data;
-
     public static function setCustomData($callback)
     {
-        config(['appman.custom' => $callback()]);
+        config(['firetower.custom' => $callback()]);
     }
 }
