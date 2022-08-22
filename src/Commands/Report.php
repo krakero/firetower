@@ -15,7 +15,7 @@ class Report extends Command
 
     public function handle(): int
     {
-        $url = config('firetower.server_url') . '/api/report/' . config('firetower.account_key') . '/' . config('firetower.application_key');
+        $url = config('firetower.server_url').'/api/report/'.config('firetower.account_key').'/'.config('firetower.application_key');
         $app = app();
         $data = [
             'is_debug_mode_on' => $app->hasDebugModeEnabled(),
