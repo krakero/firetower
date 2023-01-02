@@ -37,7 +37,12 @@ class Report extends Command
 
         $this->error('Report Failed');
         $this->line('');
-        $this->error($response->json()['message']);
+
+        if ($response->json() && array_key_exists('message', $response->json())) {
+            $this->error($response->json()['message']);
+        } else {
+            $this->error($response->body());
+        }
 
         return self::FAILURE;
     }
