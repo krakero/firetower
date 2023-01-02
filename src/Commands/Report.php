@@ -35,8 +35,8 @@ class Report extends Command
             return self::SUCCESS;
         }
 
-        $this->error('Report Failed');
-        $this->error($response->body());
+        $this->error('Report Failed - Check Laravel Log');
+        logger($response->body());
 
         return self::FAILURE;
     }
