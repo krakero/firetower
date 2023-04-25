@@ -50,7 +50,7 @@ class Report extends Command
     public function getComposerPackageDetail()
     {
         $process = new Process([
-            'php',
+            config('firetower.php_path'),
             'vendor/bin/composer',
             'show',
             '-D',
