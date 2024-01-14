@@ -5,8 +5,6 @@ namespace Krakero\FireTower\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Krakero\FireTower\Checks\ApplicationInfo;
-use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Process\Process;
 
 class Report extends Command
 {
@@ -20,7 +18,7 @@ class Report extends Command
 
     public function handle(): int
     {
-        $url = config('firetower.server_url') . '/api/report/' . config('firetower.account_key') . '/' . config('firetower.application_key');
+        $url = config('firetower.server_url').'/api/report/'.config('firetower.account_key').'/'.config('firetower.application_key');
 
         $data = collect(config('firetower.enabled_checks'))
             ->merge($this->requiredChecks)
@@ -29,6 +27,7 @@ class Report extends Command
             })
             ->map(function ($check) {
                 $value = $check->getValue();
+
                 return [
                     'class' => get_class($check),
                     'name' => $check->getName(),

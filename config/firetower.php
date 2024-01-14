@@ -8,6 +8,6 @@ return [
     'application_key' => env('FIRETOWER_APPLICATION_KEY', 'your-account-key'),
     'php_path' => env('FIRETOWER_PHP_PATH', 'php'),
     'enabled_checks' => [
-        MailConfig::class
+        MailConfig::class,
     ],
 ];

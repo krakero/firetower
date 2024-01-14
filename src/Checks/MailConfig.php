@@ -2,8 +2,6 @@
 
 namespace Krakero\FireTower\Checks;
 
-use Krakero\FireTower\Checks\Check;
-
 class MailConfig extends Check
 {
     public $name = 'Mail Config';

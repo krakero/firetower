@@ -2,7 +2,6 @@
 
 namespace Krakero\FireTower\Checks;
 
-use Krakero\FireTower\Checks\Check;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
@@ -42,7 +41,7 @@ class ApplicationInfo extends Check
         ]);
         $process->run();
 
-        if (!$process->isSuccessful()) {
+        if (! $process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
 
