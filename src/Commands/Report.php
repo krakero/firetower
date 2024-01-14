@@ -4,6 +4,7 @@ namespace Krakero\FireTower\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
+use Krakero\FireTower\Checks\ApplicationInfo;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
@@ -13,20 +14,30 @@ class Report extends Command
 
     public $description = 'Reports data to your server';
 
+    public $requiredChecks = [
+        ApplicationInfo::class,
+    ];
+
     public function handle(): int
     {
-        $url = config('firetower.server_url').'/api/report/'.config('firetower.account_key').'/'.config('firetower.application_key');
-        $app = app();
-        $data = [
-            'is_debug_mode_on' => $app->hasDebugModeEnabled(),
-            'environment' => $app->environment(),
-            'laravel_version' => $app->version(),
-            'is_maintenance_mode_on' => $app->isDownForMaintenance(),
-            'php_version' => phpversion(),
-            'url' => config('app.url'),
-            'composer_packages' => $this->getComposerPackageDetail(),
-            'custom_data' => config('firetower.custom'),
-        ];
+        $url = config('firetower.server_url') . '/api/report/' . config('firetower.account_key') . '/' . config('firetower.application_key');
+
+        $data = collect(config('firetower.enabled_checks'))
+            ->merge($this->requiredChecks)
+            ->map(function ($check) {
+                return new $check();
+            })
+            ->map(function ($check) {
+                $value = $check->getValue();
+                return [
+                    'class' => get_class($check),
+                    'name' => $check->getName(),
+                    'value' => $value,
+                    'is_ok' => $check->isOk($value),
+                ];
+            })
+            ->toArray();
+
         $response = Http::post($url, $data);
 
         if ($response->successful()) {
@@ -45,26 +56,5 @@ class Report extends Command
         }
 
         return self::FAILURE;
-    }
-
-    public function getComposerPackageDetail()
-    {
-        $process = new Process([
-            config('firetower.php_path'),
-            'vendor/bin/composer',
-            'show',
-            '-D',
-            '--format=json',
-            '--no-dev',
-        ]);
-        $process->run();
-
-        if (! $process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-
-        $output = $process->getOutput();
-
-        return json_decode($output)->installed;
     }
 }
