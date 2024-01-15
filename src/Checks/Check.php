@@ -6,8 +6,6 @@ class Check
 {
     public $name = null;
 
-    public $runs_on_server = false;
-
     public $notify_on_failure = true;
 
     public function getValue(): mixed

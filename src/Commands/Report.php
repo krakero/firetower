@@ -29,10 +29,11 @@ class Report extends Command
                 $value = $check->getValue();
 
                 return [
-                    'class' => get_class($check),
                     'name' => $check->getName(),
+                    'class' => get_class($check),
                     'value' => $value,
                     'is_ok' => $check->isOk($value),
+                    'notify' => $check->notify_on_failure,
                 ];
             })
             ->toArray();
