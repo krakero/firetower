@@ -6,6 +6,8 @@ class Check
 {
     public $name = null;
 
+    public $description = null;
+
     public $notify_on_failure = true;
 
     public function getData(): array

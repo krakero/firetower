@@ -32,6 +32,7 @@ class Report extends Command
 
                 return [
                     'name' => $check->getName(),
+                    'description' => $check->description,
                     'class' => get_class($check),
                     'data' => $data,
                     'is_ok' => $check->isOk($data),
