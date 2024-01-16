@@ -4,7 +4,7 @@ namespace Krakero\FireTower\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
-use Krakero\FireTower\Checks\ApplicationInfo;
+use Krakero\FireTower\Checks\ApplicationInfoCheck;
 
 class Report extends Command
 {
@@ -13,12 +13,14 @@ class Report extends Command
     public $description = 'Reports data to your server';
 
     public $requiredChecks = [
-        ApplicationInfo::class,
+        ApplicationInfoCheck::class,
     ];
 
     public function handle(): int
     {
-        $url = config('firetower.server_url').'/api/report/'.config('firetower.account_key').'/'.config('firetower.application_key');
+        $this->info('Starting Report');
+
+        $url = config('firetower.server_url') . '/api/report/' . config('firetower.account_key') . '/' . config('firetower.application_key');
 
         $data = collect(config('firetower.enabled_checks'))
             ->merge($this->requiredChecks)
@@ -26,17 +28,19 @@ class Report extends Command
                 return new $check();
             })
             ->map(function ($check) {
-                $value = $check->getValue();
+                $data = $check->getData();
 
                 return [
                     'name' => $check->getName(),
                     'class' => get_class($check),
-                    'value' => $value,
-                    'is_ok' => $check->isOk($value),
+                    'data' => $data,
+                    'is_ok' => $check->isOk($data),
                     'notify' => $check->notify_on_failure,
                 ];
             })
             ->toArray();
+
+        $this->line('Sending Data');
 
         $response = Http::post($url, $data);
 

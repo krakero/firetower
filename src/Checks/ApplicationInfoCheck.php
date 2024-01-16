@@ -5,11 +5,11 @@ namespace Krakero\FireTower\Checks;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
-class ApplicationInfo extends Check
+class ApplicationInfoCheck extends Check
 {
     public $name = 'Application Info';
 
-    public function getValue(): mixed
+    public function getData(): array
     {
         $app = app();
 
@@ -24,7 +24,7 @@ class ApplicationInfo extends Check
         ];
     }
 
-    public function isOk($value): bool
+    public function isOk($data): bool
     {
         return true;
     }
@@ -41,7 +41,7 @@ class ApplicationInfo extends Check
         ]);
         $process->run();
 
-        if (! $process->isSuccessful()) {
+        if (!$process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
 

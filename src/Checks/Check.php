@@ -8,9 +8,9 @@ class Check
 
     public $notify_on_failure = true;
 
-    public function getValue(): mixed
+    public function getData(): array
     {
-        return null;
+        return [];
     }
 
     public function getName()
@@ -22,15 +22,8 @@ class Check
         return get_class($this);
     }
 
-    public function isOk($value): bool
+    public function isOk($data): bool
     {
         return false;
-    }
-
-    public function run(): bool
-    {
-        $value = $this->getValue();
-
-        return $this->isOk($value);
     }
 }
