@@ -1,6 +1,6 @@
 <?php
 
-namespace Krakero\FireTower\Commands;
+namespace Krakero\FireTower\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;

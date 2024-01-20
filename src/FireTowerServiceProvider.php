@@ -2,7 +2,8 @@
 
 namespace Krakero\FireTower;
 
-use Krakero\FireTower\Commands\Report;
+use Krakero\FireTower\Console\Commands\MakeCheck;
+use Krakero\FireTower\Console\Commands\Report;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -21,6 +22,7 @@ class FireTowerServiceProvider extends PackageServiceProvider
         $package
             ->name('firetower')
             ->hasConfigFile()
+            ->hasCommand(MakeCheck::class)
             ->hasCommand(Report::class);
     }
 }
