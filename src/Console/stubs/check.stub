@@ -12,6 +12,8 @@ class {{ class }} extends Check
 
     public function getData(): array
     {
+        // Note: This data is stored on the firetower servers.
+        // PLEASE DO NOT SEND ANY SENSITIVE DATA.
         return [
             'value' => null
         ];
