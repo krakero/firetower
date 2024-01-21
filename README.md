@@ -1,3 +1,5 @@
+<p align="center"><img src="/art/socialcard.png" alt="Social Card of Fire Tower"></p>
+
 # Fire Tower
 
 > This package is designed to be used in conjuction with a Fire Tower subscription. Find out more information at [https://firetower.dev](https://firetower.dev).
