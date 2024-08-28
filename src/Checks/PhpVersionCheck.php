@@ -13,7 +13,7 @@ class PhpVersionCheck extends Check
         ];
     }
 
-    public function isOk($value): bool
+    public function isOk(): bool
     {
         return true;
     }

@@ -28,14 +28,15 @@ class Report extends Command
                 return new $check();
             })
             ->map(function ($check) {
-                $data = $check->getData();
+                $check->handle();
 
                 return [
-                    'name' => $check->getName(),
+                    'name' => $check->name,
                     'description' => $check->description,
                     'class' => get_class($check),
-                    'data' => $data,
-                    'is_ok' => $check->isOk($data),
+                    'data' => $check->send_data ? $check->data : null,
+                    'status' => $check->status,
+                    'is_ok' => $check->ok,
                     'notify' => $check->notify_on_failure,
                 ];
             })

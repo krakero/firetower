@@ -9,6 +9,8 @@ class ApplicationInfoCheck extends Check
 {
     public $name = 'Application Info';
 
+    public $notify_on_failure = false;
+
     public function getData(): array
     {
         $app = app();
@@ -24,7 +26,7 @@ class ApplicationInfoCheck extends Check
         ];
     }
 
-    public function isOk($data): bool
+    public function isOk(): bool
     {
         return true;
     }

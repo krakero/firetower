@@ -13,7 +13,7 @@ class LaravelVersionCheck extends Check
         ];
     }
 
-    public function isOk($data): bool
+    public function isOk(): bool
     {
         return true;
     }
