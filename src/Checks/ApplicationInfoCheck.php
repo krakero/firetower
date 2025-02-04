@@ -16,6 +16,7 @@ class ApplicationInfoCheck extends Check
         $app = app();
 
         return [
+            'hostname' => gethostname(),
             'is_debug_mode_on' => $app->hasDebugModeEnabled(),
             'environment' => $app->environment(),
             'laravel_version' => $app->version(),
