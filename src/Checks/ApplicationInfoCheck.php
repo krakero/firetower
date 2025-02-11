@@ -7,29 +7,27 @@ use Symfony\Component\Process\Process;
 
 class ApplicationInfoCheck extends Check
 {
-    public $name = 'Application Info';
+    public string $name = 'Application Info';
 
-    public $notify_on_failure = false;
+    public string $description = 'Gathers misc information from the application';
 
-    public function getData(): array
+    public function handle(): string
     {
         $app = app();
 
-        return [
-            'hostname' => gethostname(),
-            'is_debug_mode_on' => $app->hasDebugModeEnabled(),
-            'environment' => $app->environment(),
-            'laravel_version' => $app->version(),
-            'is_maintenance_mode_on' => $app->isDownForMaintenance(),
-            'php_version' => phpversion(),
-            'url' => config('app.url'),
-            'composer_packages' => $this->getComposerPackageDetail(),
-        ];
-    }
+        $this->pass()
+            ->data([
+                'hostname' => gethostname(),
+                'is_debug_mode_on' => $app->hasDebugModeEnabled(),
+                'environment' => $app->environment(),
+                'laravel_version' => $app->version(),
+                'is_maintenance_mode_on' => $app->isDownForMaintenance(),
+                'php_version' => phpversion(),
+                'url' => config('app.url'),
+                'composer_packages' => $this->getComposerPackageDetail(),
+            ]);
 
-    public function isOk(): bool
-    {
-        return true;
+        return 'PASS';
     }
 
     public function getComposerPackageDetail()

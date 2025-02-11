@@ -4,22 +4,26 @@ namespace Krakero\FireTower\Checks;
 
 class DebugModeInProductionCheck extends Check
 {
-    public $name = 'Debug Mode In Production';
+    public string $name = 'Debug Mode In Production';
 
-    public function getData(): array
-    {
-        return [
-            'value' => app()->hasDebugModeEnabled(),
-        ];
-    }
+    public string $description = 'Verifies that Debug Mode is turned off in production';
 
-    public function isOk(): bool
+    public function handle(): string
     {
-        return !app()->isProduction() || !$this->data['value'];
-    }
+        $app = app();
 
-    public function getStatus($okay): string
-    {
-        return $okay ? 'ok' : 'Debug mode is enabled in production';
+        $this->data([
+            'environment' => $app->environment(),
+            'debug_mode_on' => $app->hasDebugModeEnabled(),
+        ]);
+
+        if ($app->isProduction() && $app->hasDebugModeEnabled()) {
+            $this->fail();
+            return 'Debug Mode On In Production';
+        }
+
+        $this->pass();
+
+        return 'PASS';
     }
 }

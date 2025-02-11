@@ -4,49 +4,59 @@ namespace Krakero\FireTower\Checks;
 
 class Check
 {
-    public $name = '';
+    public string $name;
 
-    public $description = null;
+    public string $description;
 
-    public $notify_on_failure = true;
+    public bool $ok;
 
-    public $send_data = true;
+    public $message;
 
-    public $ok = false;
+    public array $data;
 
-    public $data = [];
+    public bool $notify_on_failure = true;
 
-    public $status = 'error';
-
-    public function handle(): void
+    public function report(): self
     {
-        $this->data = $this->getData();
-        $this->name = $this->getName();
-        $this->ok = $this->isOk();
-        $this->status = $this->getStatus($this->ok);
+        $this->message = $this->handle();
+        $this->data = $this->data ?? [];
+        $this->ok = $this->ok ?? false;
+
+        return $this;
     }
 
-    public function getData(): array
+    public function handle(): string
     {
-        return [];
+        $this->pass();
+
+        return 'it works';
     }
 
-    public function getName(): string
+    public function pass(): self
     {
-        if ($this->name) {
-            return $this->name;
-        }
+        $this->ok = true;
 
-        return get_class($this);
+        return $this;
     }
 
-    public function isOk(): bool
+    public function fail(): self
     {
-        return false;
+        $this->ok = false;
+
+        return $this;
     }
 
-    public function getStatus($okay): string
+    public function data(array $data): self
     {
-        return $okay ? 'ok' : $this->name . ' is not okay.';
+        $this->data = $data;
+
+        return $this;
+    }
+
+    public function dontNotify(): self
+    {
+        $this->notify_on_failure = false;
+
+        return $this;
     }
 }

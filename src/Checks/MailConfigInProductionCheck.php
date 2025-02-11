@@ -6,44 +6,54 @@ use Illuminate\Support\Str;
 
 class MailConfigInProductionCheck extends Check
 {
-    public $name = 'Mail Config';
+    public string $name = 'Mail Config';
 
-    public $send_data = false;
+    public string $description = 'Checks to see if there is a non-production mail config in production';
 
-    public function getData(): array
+    public function handle(): string
     {
-        if (config('mail.mailers') && config('mail.default') && array_key_exists('host', config("mail.mailers")[config("mail.default")])) {
-            return [
-                'value' => config("mail.mailers")[config("mail.default")]["host"]
-            ];
+        $mailers = config('mail.mailers');
+        $default = config('mail.default');
+
+        if (app()->isProduction() && $mailers && $default) {
+
+            if ($default === 'log') {
+                $this->fail();
+
+                return 'Mail config is set to log';
+            }
+
+            if (array_key_exists('host', $mailers[$default])) {
+                $host = $mailers[$default]["host"];
+
+                $this->data([
+                    'environment' => app()->environment(),
+                    'mail_host' => $host,
+                ]);
+
+                if ($this->hostIsTrap($host)) {
+                    $this->fail();
+
+                    return 'Mail config is set to a trap host';
+                }
+
+            }
+
         }
 
-        return [
-            'value' => '',
-        ];
+        $this->pass();
+
+        return 'Mail config looks good';
     }
 
-    public function isOk(): bool
+    public function hostIsTrap($host): bool
     {
-        if (!app()->isProduction()) {
-            return true;
-        }
-
-        return !Str::contains($this->data['value'], [
+        return !Str::contains($host, [
             'mailtrap',
             '127.0.0.1',
             'mailtrap',
             'mailpit',
             'mailhog'
         ]);
-    }
-
-    public function getStatus($okay): string
-    {
-        if ($okay) {
-            return 'ok';
-        }
-
-        return 'Config is showing local or trap host';
     }
 }

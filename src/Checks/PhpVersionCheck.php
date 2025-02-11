@@ -4,17 +4,18 @@ namespace Krakero\FireTower\Checks;
 
 class PhpVersionCheck extends Check
 {
-    public $name = 'PHP Version';
+    public string $name = 'PHP Version';
 
-    public function getData(): array
-    {
-        return [
-            'value' => phpversion()
-        ];
-    }
+    public string $description = 'Collects the PHP version for server side checks';
 
-    public function isOk(): bool
+    public function handle(): string
     {
-        return true;
+        $this->pass();
+
+        $this->data([
+            'php_version' => $ver = phpversion(),
+        ]);
+
+        return $ver;
     }
 }

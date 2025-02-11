@@ -4,17 +4,18 @@ namespace Krakero\FireTower\Checks;
 
 class LaravelVersionCheck extends Check
 {
-    public $name = 'Laravel Version';
+    public string $name = 'Laravel Version';
 
-    public function getData(): array
-    {
-        return [
-            'value' => app()->version()
-        ];
-    }
+    public string $description = 'Gathers Laravel version for server side evaluation';
 
-    public function isOk(): bool
+    public function handle(): string
     {
-        return true;
+        $this->pass();
+
+        $this->data([
+            'laravel_version' => $ver = app()->version(),
+        ]);
+
+        return $ver;
     }
 }
