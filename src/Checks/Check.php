@@ -25,21 +25,21 @@ class Check
         return $this;
     }
 
-    public function handle(): string
+    protected function handle(): string
     {
         $this->pass();
 
         return 'it works';
     }
 
-    public function pass(): self
+    protected function pass(): self
     {
         $this->ok = true;
 
         return $this;
     }
 
-    public function fail(): self
+    protected function fail(): self
     {
         $this->ok = false;
 
@@ -58,5 +58,12 @@ class Check
         $this->notify_on_failure = false;
 
         return $this;
+    }
+
+    public static function check()
+    {
+        $instance = new static();
+
+        return new $instance();
     }
 }

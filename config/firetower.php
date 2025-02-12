@@ -10,10 +10,4 @@ return [
     'account_key' => env('FIRETOWER_ACCOUNT_KEY', 'your-account-key'),
     'application_key' => env('FIRETOWER_APPLICATION_KEY', 'your-account-key'),
     'php_path' => env('FIRETOWER_PHP_PATH', 'php'),
-    'enabled_checks' => [
-        DebugModeInProductionCheck::class,
-        LaravelVersionCheck::class,
-        MailConfigInProductionCheck::class,
-        PhpVersionCheck::class,
-    ],
 ];

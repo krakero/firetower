@@ -12,8 +12,22 @@ class FireTowerServiceProvider extends PackageServiceProvider
     public function register()
     {
         parent::register();
-        $this->app->bind('firetower', function ($app) {
+        $this->app->singleton('firetower', function ($app) {
             return new FireTower();
+        });
+    }
+
+    public function boot()
+    {
+        parent::boot();
+
+        \Krakero\FireTower\Facades\Firetower::checks(function () {
+            return [
+                \Krakero\FireTower\Checks\DebugModeInProductionCheck::check(),
+                \Krakero\FireTower\Checks\LaravelVersionCheck::check(),
+                \Krakero\FireTower\Checks\MailConfigInProductionCheck::check(),
+                \Krakero\FireTower\Checks\PhpVersionCheck::check(),
+            ];
         });
     }
 
