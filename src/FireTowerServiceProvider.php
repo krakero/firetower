@@ -4,7 +4,7 @@ namespace Krakero\FireTower;
 
 use Krakero\FireTower\Console\Commands\MakeCheck;
 use Krakero\FireTower\Console\Commands\Report;
-use Krakero\FireTower\Facades\Firetower as FireTowerFacade;
+use Krakero\FireTower\Facades\FireTower as FireTowerFacade;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
