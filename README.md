@@ -2,7 +2,7 @@
 
 # Fire Tower
 
-> This package is designed to be used in conjuction with a Fire Tower subscription. Find out more information at [https://firetower.dev](https://firetower.dev).
+> This package is designed to be used in conjunction with a Fire Tower subscription. Find out more information at [https://firetower.dev](https://firetower.dev).
 
 This package helps monitor your Laravel application by performing checks and sending information to the Fire Tower service.
 
@@ -10,13 +10,15 @@ This package helps monitor your Laravel application by performing checks and sen
 
 The first step, if you haven't done it already, is to sign up for an account at [https://firetower.dev](https://firetower.dev).
 
-After signing up for an account, install Fire Tower into your project using the Composer package manager:
+After signing up for an account, install the Fire Tower package into your project using the Composer package manager:
 
 `composer require krakero/firetower`
 
-After installing Fire Tower, login to your account and create an application.
+Once complete run the following command to install the config file and service provider:
 
-Once you create an application paste the provided variables into your.env file:
+`php artisan firetower:install`
+
+In the Fire Tower interface, create an application and paste the provided variables into your.env file:
 
 ```env
 FIRETOWER_ACCOUNT_KEY=abcdefgh-hijk-1234-5678-90123lmnopqr
@@ -27,4 +29,4 @@ Next, test everything by running `php artisan firetower:report` and refresh your
 
 ## Documentation
 
-You'll find the documentation for this package online at [https://firetower.dev/docs](https://firetower.dev/docs).
+You can find full documentation at [https://firetower.dev/docs](https://firetower.dev/docs).
