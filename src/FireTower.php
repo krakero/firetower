@@ -15,6 +15,10 @@ class FireTower
     {
         $callback = $this->checksCallback;
 
-        return $callback();
+        if ($callback) {
+            return $callback();
+        }
+
+        return null;
     }
 }

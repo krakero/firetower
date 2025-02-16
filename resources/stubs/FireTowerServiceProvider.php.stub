@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Providers;
+
+use Krakero\FireTower\Checks\DebugModeInProductionCheck;
+use Krakero\FireTower\Checks\LaravelVersionCheck;
+use Krakero\FireTower\Checks\MailConfigInProductionCheck;
+use Krakero\FireTower\Checks\PhpVersionCheck;
+use Krakero\FireTower\Checks\StripeKeyCheck;
+use Krakero\FireTower\Facades\FireTower;
+use Illuminate\Support\ServiceProvider;
+
+class FireTowerServiceProvider extends ServiceProvider
+{
+    public function boot()
+    {
+        FireTower::checks(function () {
+            return [
+                DebugModeInProductionCheck::check(),
+                LaravelVersionCheck::check(),
+                PhpVersionCheck::check(),
+                //MailConfigInProductionCheck::check(),
+                //StripeKeyCheck::check()
+            ];
+        });
+    }
+}

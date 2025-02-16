@@ -1,0 +1,26 @@
+<?php
+
+namespace {{ namespace }};
+
+use Krakero\FireTower\Checks\Check;
+
+class {{ class }} extends Check
+{
+    public string $name = 'My New Check';
+
+    public string $description = 'This checks that important data';
+
+    public function handle(): string
+    {
+
+        $this->pass();
+
+        // Note: This data is stored on the firetower servers.
+        // PLEASE DO NOT SEND ANY SENSITIVE DATA.
+        $this->data([
+            'my_variable' => 8675309
+        ]);
+
+        return 'Success';
+    }
+}

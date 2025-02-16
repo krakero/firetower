@@ -2,9 +2,9 @@
 
 namespace Krakero\FireTower;
 
+use Krakero\FireTower\Console\Commands\Install;
 use Krakero\FireTower\Console\Commands\MakeCheck;
 use Krakero\FireTower\Console\Commands\Report;
-use Krakero\FireTower\Facades\FireTower as FireTowerFacade;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -21,15 +21,6 @@ class FireTowerServiceProvider extends PackageServiceProvider
     public function boot()
     {
         parent::boot();
-
-        FireTowerFacade::checks(function () {
-            return [
-                \Krakero\FireTower\Checks\DebugModeInProductionCheck::check(),
-                \Krakero\FireTower\Checks\LaravelVersionCheck::check(),
-                \Krakero\FireTower\Checks\MailConfigInProductionCheck::check(),
-                \Krakero\FireTower\Checks\PhpVersionCheck::check(),
-            ];
-        });
     }
 
     public function configurePackage(Package $package): void
@@ -37,6 +28,8 @@ class FireTowerServiceProvider extends PackageServiceProvider
         $package
             ->name('firetower')
             ->hasConfigFile()
+            ->publishesServiceProvider('FireTowerServiceProvider')
+            ->hasCommand(Install::class)
             ->hasCommand(MakeCheck::class)
             ->hasCommand(Report::class);
     }

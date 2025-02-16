@@ -10,6 +10,8 @@ class MakeCheck extends GeneratorCommand
 
     public $description = 'Generates a new FireTower Check';
 
+    public $type = 'Check';
+
     public function handle(): int
     {
         if (parent::handle() === false) {
@@ -26,7 +28,7 @@ class MakeCheck extends GeneratorCommand
      */
     protected function getStub()
     {
-        return $this->resolveStubPath('/../stubs/check.stub');
+        return $this->resolveStubPath('/../../../resources/stubs/check.php.stub');
     }
 
     /**
