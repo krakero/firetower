@@ -12,14 +12,16 @@ class Check
 
     public $message;
 
-    public array $data;
+    public array $data = [];
+
+    public array $firetower_data = [];
 
     public bool $notify_on_failure = true;
 
     public function report(): self
     {
         $this->message = $this->handle();
-        $this->data = $this->data ?? [];
+        $this->data = $this->mergeData();
         $this->ok = $this->ok ?? false;
 
         return $this;
@@ -46,6 +48,15 @@ class Check
         return $this;
     }
 
+    public function mergeData()
+    {
+        if (!empty($this->firetower_data)) {
+            $this->data['firetower'] = $this->firetower_data;
+        }
+
+        return $this->data;
+    }
+
     public function data(array $data): self
     {
         $this->data = $data;
@@ -65,5 +76,12 @@ class Check
         $instance = new static();
 
         return new $instance();
+    }
+
+    public function name($string)
+    {
+        $this->firetower_data['name'] = $string;
+
+        return $this;
     }
 }
