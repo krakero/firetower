@@ -33,10 +33,8 @@ class MailConfigInProductionCheck extends Check
 
                 if ($this->hostIsTrap($host)) {
                     $this->fail();
-
                     return 'Mail config is set to a trap host';
                 }
-
             }
 
         }
@@ -48,7 +46,7 @@ class MailConfigInProductionCheck extends Check
 
     public function hostIsTrap($host): bool
     {
-        return !Str::contains($host, [
+        return Str::contains($host, [
             'mailtrap',
             '127.0.0.1',
             'mailtrap',
