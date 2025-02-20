@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Krakero\FireTower\Checks\DebugModeInProductionCheck;
+use Krakero\FireTower\Checks\DiskSpaceCheck;
 use Krakero\FireTower\Checks\LaravelVersionCheck;
 use Krakero\FireTower\Checks\MailConfigInProductionCheck;
 use Krakero\FireTower\Checks\PhpVersionCheck;
@@ -21,6 +22,7 @@ class FireTowerServiceProvider extends ServiceProvider
                 PhpVersionCheck::check(),
                 //MailConfigInProductionCheck::check(),
                 //StripeKeyCheck::check()
+                //DiskSpaceCheck::check()
             ];
         });
     }
