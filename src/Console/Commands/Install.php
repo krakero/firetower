@@ -3,11 +3,8 @@
 namespace Krakero\FireTower\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
-use Krakero\FireTower\Checks\ApplicationInfoCheck;
-use Krakero\FireTower\Facades\FireTower;
 
 class Install extends Command
 {
